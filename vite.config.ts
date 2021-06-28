@@ -19,7 +19,7 @@ const config = defineConfig(({ mode }) => {
           dev: !production,
         },
       }),
-      createAssetManifest(),
+      createAssetManifest(production),
     ],
     server: {
       host: 'localhost',
@@ -43,7 +43,7 @@ function createAssetManifest() {
     apply: 'build',
     writeBundle() {
       fs.readdir('dist/assets', (err, files) => {
-        const paths = files.map((f) => `'/assets/${f}'`)
+        const paths = [...files.map((f) => `'/assets/${f}'`), '"/index.html"']
         const output = `const manifest = [
            ${paths.join(',\n')}
         ]`

@@ -5,7 +5,7 @@ const app = new App({
 })
 
 if ('serviceWorker' in navigator) {
-  initServiceWorker()
+  import.meta.env.PROD && initServiceWorker()
 }
 
 function initServiceWorker() {

@@ -52,10 +52,10 @@ function onFetch(evt) {
 }
 
 async function handleActivation() {
-  // tell all clients SW is in control
-  await clients.claim()
   await clearCaches()
   await cacheImages()
+  // tell all clients SW is in control
+  await clients.claim()
 }
 
 function staleWithRevalidate(evt) {

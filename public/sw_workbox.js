@@ -1,8 +1,20 @@
-const cacheName = 'stale-with-revalidate'
+const version = 1
+const cacheName = `workbox-dogs${1}`
 
 // import workbox
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js')
-const { routing, strategies } = workbox
+importScripts('./asset-manifest.js')
+
+const { routing, strategies, precaching } = workbox
+
+precaching.precacheAndRoute(
+  manifest.map((url) => ({
+    url,
+    // file itself has its own revision
+    revision: null,
+  })),
+  { cacheName }
+)
 
 // implements staleWhileRevalidate to all routes
 routing.registerRoute(() => true, new strategies.StaleWhileRevalidate({ cacheName }))
